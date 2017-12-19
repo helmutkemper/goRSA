@@ -3,7 +3,6 @@ package goRSA
 import (
   "crypto/rsa"
   "crypto/x509"
-  "encoding/asn1"
   "encoding/gob"
   "encoding/pem"
   "os"
@@ -42,7 +41,7 @@ func SavePEMKey(fileName string, key *rsa.PrivateKey) error {
 }
 
 func SavePublicPEMKey(fileName string, pubkey rsa.PublicKey) error {
-  asn1Bytes, err := asn1.Marshal(pubkey)
+  asn1Bytes, err := x509.MarshalPKIXPublicKey(&pubkey)
   if err != nil {
     return err
   }
